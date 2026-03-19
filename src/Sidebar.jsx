@@ -28,12 +28,24 @@ const NAV_ITEMS = [
   { id: 'orders', label: 'Orders', icon: () => <BiIcon name="table" /> },
   { id: 'products', label: 'Products', icon: () => <BiIcon name="grid-fill" /> },
   { id: 'customers', label: 'Customers', icon: () => <BiIcon name="people-fill" /> },
-  { id: 'notes-to-do', label: 'Notes to do', icon: IconCardChecklistFilled },
+  {
+    id: 'notes-to-do',
+    label: 'Notes to do',
+    icon: IconCardChecklistFilled,
+    externalHref: 'https://notes-to-do.darkube.app/',
+  },
   {
     id: 'musics',
     label: 'Musics',
     icon: () => <BiIcon name="apple-music" />,
     externalHref: 'https://mahdixak-music.darkube.app/',
+  },
+  { id: 'blackout-situation', label: 'Blackout situation', icon: () => <BiIcon name="wifi-off" /> },
+  {
+    id: 'chat',
+    label: 'Chat',
+    icon: () => <BiIcon name="chat-dots-fill" />,
+    externalHref: 'https://oneclick-rocketchat-osgu3zzv.darkube.app/',
   },
 ];
 
