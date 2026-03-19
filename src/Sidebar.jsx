@@ -48,6 +48,16 @@ function IconCustomers() {
   );
 }
 
+function IconMusics() {
+  return (
+    <svg className="sidebar__icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+      <path d="M6 13c0 1.657-1.343 3-3 3S0 14.657 0 13s1.343-3 3-3 3 1.343 3 3z" />
+      <path d="M9.346 5.345 7.828 7.091A.5.5 0 0 0 8 7.5v5a.5.5 0 0 0 .5.5 2.5 2.5 0 0 1 0 5 .5.5 0 0 0 .5.5h1.528a2.5 2.5 0 0 0 2.443-1.973l.671-3.356a1.5 1.5 0 0 0-1.188-1.771l-1.656-.331a1.5 1.5 0 0 1-1.17-.869l-.308-.617A1.5 1.5 0 0 0 9.346 5.345z" />
+      <path d="m11.536 9.436.671 3.356a2.5 2.5 0 0 1-2.443 2.027H9.748a2.5 2.5 0 0 1-2.443-2.027l-.671-3.356a1.5 1.5 0 0 1 1.188-1.771l1.656-.331a1.5 1.5 0 0 0 1.17-.869l.308-.617A1.5 1.5 0 0 1 11.536 5.43z" />
+    </svg>
+  );
+}
+
 function IconBrand() {
   return (
     <svg className="sidebar__brand-svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
@@ -74,6 +84,12 @@ const NAV_ITEMS = [
   { id: 'orders', label: 'Orders', icon: IconOrders },
   { id: 'products', label: 'Products', icon: IconProducts },
   { id: 'customers', label: 'Customers', icon: IconCustomers },
+  {
+    id: 'musics',
+    label: 'Musics',
+    icon: IconMusics,
+    externalHref: 'https://mahdixak-music.darkube.app/',
+  },
 ];
 
 export default function Sidebar() {
@@ -88,12 +104,12 @@ export default function Sidebar() {
 
       <nav className="sidebar__nav" aria-label="Sections">
         <ul className="sidebar__list">
-          {NAV_ITEMS.map(({ id, label, icon: Icon, active }) => (
+          {NAV_ITEMS.map(({ id, label, icon: Icon, active, externalHref }) => (
             <li key={id} className="sidebar__item">
               <a
                 className={`sidebar__link${active ? ' sidebar__link--active' : ''}`}
-                href={`#${id}`}
-                aria-current={active ? 'page' : undefined}
+                href={externalHref ?? `#${id}`}
+                aria-current={active && !externalHref ? 'page' : undefined}
               >
                 <Icon />
                 <span className="sidebar__label">{label}</span>
