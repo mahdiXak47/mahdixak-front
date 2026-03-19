@@ -1,0 +1,16 @@
+:root {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  --color-navy: #000080;
+  --color-cobalt: #0047ab;
+  --color-sky: #82c8e5;
+  --color-frost: #f0f6fc;
+  --color-ink: #0a1530;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-frost);
+  color: var(--color-ink);
+}
