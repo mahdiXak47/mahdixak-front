@@ -32,13 +32,13 @@ const NAV_ITEMS = [
     id: 'notes-to-do',
     label: 'Notes to do',
     icon: IconCardChecklistFilled,
-    externalHref: 'https://notes-to-do.darkube.app/',
+    externalHref: 'https://notestodo.mahdixak.ir/',
   },
   {
     id: 'musics',
     label: 'Musics',
     icon: () => <BiIcon name="apple-music" />,
-    externalHref: 'https://mahdixak-music.darkube.app/',
+    externalHref: 'https://musics.mahdixak.ir/',
   },
   { id: 'blackout-situation', label: 'Blackout situation', icon: () => <BiIcon name="wifi-off" /> },
   {
@@ -49,6 +49,12 @@ const NAV_ITEMS = [
   },
   { id: 'encrypted-send', label: 'Encrypted send', icon: () => <BiIcon name="incognito" />, externalHref: 'https://ignis.locker/' },
   { id: 'mirrors', label: 'Mirrors', icon: () => <BiIcon name="hdd-network-fill" /> },
+  {
+    id: 'taskctl',
+    label: 'Taskctl',
+    icon: () => <BiIcon name="list-task" />,
+    externalHref: 'https://taskctl.mahdixak.ir/',
+  },
 ];
 
 export default function Sidebar() {
