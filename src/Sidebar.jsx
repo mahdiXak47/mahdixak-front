@@ -48,6 +48,7 @@ const NAV_ITEMS = [
     externalHref: 'https://oneclick-rocketchat-osgu3zzv.darkube.app/',
   },
   { id: 'encrypted-send', label: 'Encrypted send', icon: () => <BiIcon name="incognito" />, externalHref: 'https://ignis.locker/' },
+  { id: 'mirrors', label: 'Mirrors', icon: () => <BiIcon name="hdd-network-fill" /> },
 ];
 
 export default function Sidebar() {
