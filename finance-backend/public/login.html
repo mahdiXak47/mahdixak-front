@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود — مدیریت مالی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d12;
+  --s1: #141419;
+  --s2: #1a1a22;
+  --border: rgba(255,255,255,0.07);
+  --accent: #a78bfa;
+  --red: #f87171;
+  --text: #ededf5;
+  --muted: #7a789a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Vazirmatn', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: rtl;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.login-box {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+}
+.login-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, #a78bfa33, #a78bfa11);
+  border: 1px solid rgba(167,139,250,0.3);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 1.5rem;
+}
+h1 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 1rem;
+  direction: ltr;
+  text-align: right;
+}
+input:focus { border-color: var(--accent); }
+input.error { border-color: var(--red); }
+.btn {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 0.25rem;
+}
+.btn:hover { opacity: 0.85; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.error-msg {
+  background: rgba(248,113,113,0.1);
+  border: 1px solid rgba(248,113,113,0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 1rem;
+  display: none;
+}
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="login-icon">💰</div>
+  <h1>مدیریت مالی</h1>
+  <p class="subtitle">ردیاب مخارج شخصی</p>
+
+  <div class="error-msg" id="err-msg"></div>
+
+  <label>نام کاربری</label>
+  <input type="text" id="username" autocomplete="username" placeholder="نام کاربری" />
+
+  <label>رمز عبور</label>
+  <input type="password" id="password" autocomplete="current-password" placeholder="رمز عبور"
+    onkeydown="if(event.key==='Enter') login()" />
+
+  <button class="btn" id="login-btn" onclick="login()">ورود</button>
+</div>
+
+<script>
+async function login() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('err-msg');
+
+  if (!username || !password) {
+    showError('نام کاربری و رمز عبور را وارد کنید');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'در حال ورود...';
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      window.location.href = '/finance-management';
+    } else {
+      showError(data.error || 'خطا در ورود');
+    }
+  } catch {
+    showError('خطا در اتصال به سرور');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'ورود';
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('err-msg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  document.getElementById('password').classList.add('error');
+  setTimeout(() => document.getElementById('password').classList.remove('error'), 1500);
+}
+</script>
+</body>
+</html>

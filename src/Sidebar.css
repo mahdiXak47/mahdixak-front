@@ -239,8 +239,15 @@
   padding: 2rem;
   background: var(--color-frost);
   color: var(--color-ink);
+  overflow-y: auto;
 }
 
 .app-main h1 {
   margin-top: 0;
+}
+
+.app-main--finance {
+  padding: 0;
+  background: #0d0d12;
+  color: #ededf5;
 }

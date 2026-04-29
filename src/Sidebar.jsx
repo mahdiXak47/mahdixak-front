@@ -23,8 +23,8 @@ function BiIcon({ name, className = '' }) {
 }
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home', icon: () => <BiIcon name="house-fill" />, active: true },
-  { id: 'dashboard', label: 'Dashboard', icon: () => <BiIcon name="speedometer2" /> },
+  { id: 'home', label: 'Home', icon: () => <BiIcon name="house-fill" /> },
+  { id: 'finance', label: 'Finance Management', icon: () => <BiIcon name="wallet2" /> },
   { id: 'orders', label: 'Orders', icon: () => <BiIcon name="table" /> },
   { id: 'products', label: 'Products', icon: () => <BiIcon name="grid-fill" /> },
   { id: 'customers', label: 'Customers', icon: () => <BiIcon name="people-fill" /> },
@@ -57,7 +57,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ activePage, onNav }) {
   return (
     <aside className="sidebar" aria-label="Main navigation">
       <div className="sidebar__header">
@@ -69,18 +69,32 @@ export default function Sidebar() {
 
       <nav className="sidebar__nav" aria-label="Sections">
         <ul className="sidebar__list">
-          {NAV_ITEMS.map(({ id, label, icon: Icon, active, externalHref }) => (
-            <li key={id} className="sidebar__item">
-              <a
-                className={`sidebar__link${active ? ' sidebar__link--active' : ''}`}
-                href={externalHref ?? `#${id}`}
-                aria-current={active && !externalHref ? 'page' : undefined}
-              >
-                <Icon />
-                <span className="sidebar__label">{label}</span>
-              </a>
-            </li>
-          ))}
+          {NAV_ITEMS.map(({ id, label, icon: Icon, externalHref }) => {
+            const isActive = id === activePage;
+            if (externalHref) {
+              return (
+                <li key={id} className="sidebar__item">
+                  <a className="sidebar__link" href={externalHref} target="_blank" rel="noopener noreferrer">
+                    <Icon />
+                    <span className="sidebar__label">{label}</span>
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={id} className="sidebar__item">
+                <a
+                  className={`sidebar__link${isActive ? ' sidebar__link--active' : ''}`}
+                  href={`#${id}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={(e) => { e.preventDefault(); onNav(id); }}
+                >
+                  <Icon />
+                  <span className="sidebar__label">{label}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
